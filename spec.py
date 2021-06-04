@@ -3,7 +3,7 @@ import numpy as np
 import torch, torch.nn as nn, torch.nn.functional as F
 import torchaudio as ta, torchaudio.functional as taF
 
-from .config import Config, ConfigList, ConfigDict, configurable
+from config import Config, ConfigList, ConfigDict, configurable
 
 
 @configurable()
@@ -17,7 +17,7 @@ class Reverberation(nn.Module):
         self.min_reverb_time = min_reverb_time
         self.kernel_size = kernel_size
         self.auto_remake_kernel = auto_remake_kernel
-        super().__init__(minlen, pad_left=self.pad_left, pad_right=self.pad_right)
+        super().__init__()
         
         
         
@@ -75,8 +75,7 @@ class STFT(nn.Module):
         self.win_sum = self.window.sum()
         self.normalize = normalize
         self.trainable = trainable
-        super().__init__(minlen=n_fft, stride=self.hop_length, pad_left=self.pad_left, pad_right=self.pad_right, 
-                         pad_mode=self.pad_mode, pad_value=self.pad_value)
+        super().__init__()
         self.make_kernel()
         
     def make_kernel(self):
